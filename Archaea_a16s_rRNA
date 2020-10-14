@@ -1,0 +1,4 @@
+#Archaea a16s rRNA dada2 pipeline used for BPA dataset:
+#a16sF primer (A2F/Arch21f): 5’-TTCCGGTTGATCCYGCCGGA-3’
+#a16sR primer (519 R*): 5’-GWATTACCGCGGCKGCTG-3’
+#Archaea a16s rRNA truncated at:(R1= 250; R2= 228)

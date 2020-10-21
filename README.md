@@ -3,6 +3,7 @@ This is a custom script to process Illumina MiSeq amplicon data directly modifie
 The script includes some modifications to fulfill specific needs and has proven to work well for several plates of Illumina sequencing run in succession throught the same pipeline before being compiled, collapsed using collapse_no_mismatch, and finally being exported as an amplicon sequence variants (ASV) table.
 
 The code used here was adapted from:
+
 Callahan BJ, McMurdie PJ, Rosen MJ, Han AW, Johnson AJ, Holmes SP. DADA2: high-resolution sample inference from Illumina amplicon data. Nat Methods 2006;13:581–3.
 Callahan, Benjamin J, Paul J McMurdie, and Susan P Holmes. 2017. “Exact Sequence Variants Should Replace Operational Taxonomic Units in Marker Gene Data Analysis.” bioRxiv. Cold Spring Harbor Labs Journals, 113597.
 

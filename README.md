@@ -30,9 +30,9 @@ Eukaryotic 18s rRNA |  (TAReuk454FWD1): 5’-CCAGCASCYGCGGTAATTCC-3’ | (TAReuk
 03. Processing multiple sequencing runs on a HPC using PBS
 04. Building a unified ASV table and running collapse_no_mismatch
 05. Assigning taxonomy:
-    * a) GTDB (for a16s and/or b16s)
-    * b) Silva_v138 (for b16s)
-    * c) PR2 (for e18s)
+  * GTDB (for a16s and/or b16s)
+  * Silva_v138 (for b16s)
+  * PR2 (for e18s)
 06. Pre-analysis options
 
 

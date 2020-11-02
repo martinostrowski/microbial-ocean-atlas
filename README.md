@@ -12,9 +12,24 @@ Callahan, Benjamin J, Paul J McMurdie, and Susan P Holmes. 2017. “Exact Sequen
 This is the R code used for processing the paired end Illumina reads for the all of the Marine Microbes pelagic project samples as of August 2020. Raw paired end reads were obtained from the Bioplatforms Australia data portal (Australian Microbiome data portal: https://data.bioplatforms.com/organization/about/australian-microbiome) and were run through a customised version of dada2 pipeline in order to check the read quality, remove forward and reverse primers from the reads using cutadapt, and truncate the reads to eliminate low quality terminal bases. Error rates were learned based on 1e8 bases and max consist =20. Reads were then dereplicated and merged using pseudo pooling. The chimeras were then removed using `minFoldParentOverAbundance`=1. Finally all plates run through the pipeline were saved as individual seqtab files, they were merged and together run through the `collapseNoMismatch` step in order to collapse two identical merged reads without internal mismatches, but having different terminal lengths into one ASV, combining their abundances and retaining the most abundant of the two collapsed reads. Reads were then assigned using different databases depending on their target organism, this pipeline was used for three Marine Microbes time series, each with their own pipeline, primers and truncLengths: 
 
 | Target | F primer | R primer |
-| :------------- |:-------------:|:-----|
+| :------------- |:------------- |:-----|
 Archaea a16s rRNA | (A2F/Arch21f): 5’-TTCCGGTTGATCCYGCCGGA-3’ | (519 R*): 5’-GWATTACCGCGGCKGCTG-3’ |
 Bacterial 16s rRNA | (27 F): 5’-AGAGTTTGATCMTGGCTCAG-3’| (519 R*): 5’-GWATTACCGCGGCKGCTG-3’ |
 Eukaryotic 18s rRNA |  (TAReuk454FWD1): 5’-CCAGCASCYGCGGTAATTCC-3’ | (TAReuk-Rev3): 5’-ACTTTCGTTCTTGATYRATGATCTRYATC-3’|
+
+***
+
+## Summary of processes
+
+01. Preparation
+02. Main DaDa2 pipeline
+  * Archaea
+  * Bacteria
+  * Eukaryotes
+
+03. Processing multiple sequencing runs on a HPC using PBS
+04. Building a unified ASV table
+05. Pre-analysis options
+
 
 

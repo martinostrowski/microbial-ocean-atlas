@@ -1,0 +1,4 @@
+#Eukaryotic 18s rRNA dada2 pipeline used for BPA dataset:
+#e18sF primer (TAReuk454FWD1): 5’-CCAGCASCYGCGGTAATTCC-3’ 
+#e18sR primer (TAReuk-Rev3): 5’-ACTTTCGTTCTTGATYRATGATCTRYATC-3’
+#Eukaryotic e18s rRNA truncated at:(R1= 250; R2= 228)

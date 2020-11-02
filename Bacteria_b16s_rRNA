@@ -1,0 +1,4 @@
+#Bacterial b16s rRNA dada2 pipeline used for BPA dataset:
+#b18sF primer (27 F): 5’-AGAGTTTGATCMTGGCTCAG-3’
+#b18sR primer (519 R*): 5’-GWATTACCGCGGCKGCTG-3’
+#Bacterial b16s rRNA truncated at:(R1= 255; R2= 250)

@@ -1,6 +1,6 @@
-Preparation steps 
+## Preparation steps 
 
-1. Download PE fastq files from the bioplatforms data portal and store them in directory corresponding to the flow_id of the sequencing run for each locus (i.e. Bacterila, Archaea, Eukaryotes)
+1. Download PE fastq files from the bioplatforms data portal and store them in directory corresponding to the flow_id of the sequencing run for each locus (i.e. Bacteria, Archaea, Eukaryotes)
 2. build a run list (plates.csv) which consists of the flow_ids with the follwing structure
 
 ```r

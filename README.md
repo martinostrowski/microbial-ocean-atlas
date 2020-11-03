@@ -38,18 +38,18 @@ Eukaryotic 18s rRNA |  (TAReuk454FWD1): 5’-CCAGCASCYGCGGTAATTCC-3’ | (TAReuk
 
 ## Summary of processes
 
-01. [Preparation](../blob/main/01_preparation.md01_preparation.md)
-02. [Main DaDa2 pipeline](../02_main_pipeline.md)
-  * [Archaea](../02_Archaea_a16s)
-  * [Bacteria](../02_Bacteria_b16s)
-  * [Eukaryotes](../02_Euk_e18s)
+01. [Preparation](01_preparation.md01_preparation.md)
+02. [Main DaDa2 pipeline](02_main_pipeline.md)
+  * [Archaea](02_Archaea_a16s)
+  * [Bacteria](02_Bacteria_b16s)
+  * [Eukaryotes](02_Euk_e18s)
 
 03. Processing multiple sequencing runs on a HPC using PBS. [example PBS script](../03_pbs_script)
-04. [Building a unified ASV table](../04_build_table.md) *including `collapseNoMismatch`*
+04. [Building a unified ASV table](04_build_table.md) *including `collapseNoMismatch`*
 05. Taxonomic Assignment
-  * [GTDB (for a16s and/or b16s)](../05_Archaea_a16s)
-  * [Silva v138 (b16s)](../05_Bacteria_b16s)
-  * [PR2 (for e18s and chloroplasts)](../05_Euk_e18s)
+  * [GTDB (for a16s and/or b16s)](05_Archaea_a16s)
+  * [Silva v138 (b16s)](05_Bacteria_b16s)
+  * [PR2 (for e18s and chloroplasts)](05_Euk_e18s)
 06. Pre-analysis options
 
 

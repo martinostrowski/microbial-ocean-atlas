@@ -38,7 +38,7 @@ Eukaryotic 18s rRNA |  (TAReuk454FWD1): 5’-CCAGCASCYGCGGTAATTCC-3’ | (TAReuk
 
 ## Summary of processes
 
-01. [Preparation](../01_preparation.md)
+01. [Preparation](../blob/main/01_preparation.md01_preparation.md)
 02. [Main DaDa2 pipeline](../02_main_pipeline.md)
   * [Archaea](../02_Archaea_a16s)
   * [Bacteria](../02_Bacteria_b16s)

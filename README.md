@@ -38,14 +38,14 @@ Eukaryotic 18s rRNA |  (TAReuk454FWD1): 5’-CCAGCASCYGCGGTAATTCC-3’ | (TAReuk
 
 ## Summary of processes
 
-01. Preparation
-02. Main DaDa2 pipeline
+01. [Preparation](../01_preparation.md)
+02. [Main DaDa2 pipeline](../02_main_pipeline.md)
   * [Archaea](../02_Archaea_a16s)
   * [Bacteria](../02_Bacteria_b16s)
   * [Eukaryotes](../02_Euk_e18s)
 
-03. Processing multiple sequencing runs on a HPC using PBS
-04. Building a unified ASV table
+03. Processing multiple sequencing runs on a HPC using PBS. [example PBS script](../03_pbs_script.md)
+04. [Building a unified ASV table](../04_build_table.md) *including `collapseNoMismatch`*
 05. Pre-analysis options
 
 

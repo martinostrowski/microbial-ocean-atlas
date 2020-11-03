@@ -8,6 +8,8 @@ a16sR primer (519 R*): 5’-GWATTACCGCGGCKGCTG-3’
 Archaea a16s rRNA truncated at:(R1= 228; R2= 228)
 
 
+### Setup
+
 ```r
 library(R.utils);
 library(dada2);
@@ -23,6 +25,9 @@ library(Biostrings);
 library(DECIPHER); packageVersion("DECIPHER");
 ```
 
+### STEP 1
+
+Setup import and export dirs
 
 
 ```r
@@ -50,7 +55,9 @@ dir.create(paste0(trimLeng));
 ```
 
 
-### STEP2a: UNZIP your files if needed, here the patter is fastq if your files are still zipped they will be unzipped
+### STEP2a
+
+UNZIP your files if needed, here the pattern is fastq if your files are still zipped they will be unzipped
 
 
 ```r
@@ -112,10 +119,10 @@ rbind(FWD.ForwardReads = sapply(FWD.orients, primerHits, fn = fnFs.filtN[[1]]),
     REV.ForwardReads = sapply(REV.orients, primerHits, fn = fnFs.filtN[[1]]), 
     REV.ReverseReads = sapply(REV.orients, primerHits, fn = fnRs.filtN[[1]]));
  ```  
-### Check and remove primers with cutadapt
-    
-    
-    
+### STEP 4
+
+Check and remove primers with cutadapt
+
     
 ```r
 cutadapt <- "/shared/c3/apps/anaconda3/bin/cutadapt"; # This is the path for the HPC
@@ -158,7 +165,9 @@ rbind(FWD.ForwardReads = sapply(FWD.orients, primerHits, fn = fnFs.cut[[1]]),
     REV.ReverseReads = sapply(REV.orients, primerHits, fn = fnRs.cut[[1]]));
 ```
 
-### STEP5: Dada2 trim step (CHANGE TRIM lengths in this step!)
+### STEP 5
+
+Dada2 trim step (CHANGE TRIM lengths in this step!)
 
 here you are renaming your new files to be sample name_R1_trim.fastq, no need to change
 
@@ -183,6 +192,15 @@ trimFs <- trimFs[passed.trim]; # Keep only those samples that passed the filter
 trimRs <- trimRs[passed.trim]; # Keep only those samples that passed the filter
 
 data.fp <- paste0(trimLeng);
+```
+
+
+### STEP 6
+
+Estimate the error rates
+
+```r
+
 
 errF <- learnErrors(trimFs, nbases =1e8, verbose=TRUE, multithread=10, MAX_CONSIST=20);
 errR <- learnErrors(trimRs, nbases =1e8, verbose=TRUE, multithread=10, MAX_CONSIST=20);
@@ -195,7 +213,9 @@ ggsave(file = paste0(trunc_dir,"/","rev.errors.pdf"), rev.plot.errors, width = 1
 
 
 
-### STEP7:  DEREPLICATION, DADA2 Step, MERGE, and COLLAPSE if the same! SAVE RDS
+### STE 7
+
+DEREPLICATION, DADA2 Step, MERGE, and COLLAPSE if the same! SAVE RDS
 
 ```r
 derepFs<-derepFastq(trimFs);
@@ -215,7 +235,9 @@ saveRDS(seqtab, file = paste0(trunc_dir,"/",plates[p,1],"seqtab.RDS"), ascii = F
 
 
 
-### STEP8: Dada2 chimera removal step
+### STEP 8
+
+Dada2 chimera removal step
 
 using 2 different thresholds for removal (minFoldParentOverAbundance=4 and 1), 1 is standard
 
@@ -233,7 +255,9 @@ saveRDS(seqtab.nochim.4, file = paste0(trunc_dir,"/",plates[p,1],"seqtab.4.RDS")
 
 
 
-### STEP9: WRITE TABLES!
+### STEP9
+
+WRITE TABLES!
 
 changeG information in the following CSVs to match what you used in step 5 so that you have a record of your parameters when you should need it
 

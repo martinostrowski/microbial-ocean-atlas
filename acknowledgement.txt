@@ -1,0 +1,14 @@
+Acknowledgement:
+
+The Microbial Ocean Atlas project (2021-2022) received investment (https://doi.org/10.47486/XN004) from the Australian Research Data Commons (ARDC). 
+
+This dataset has been made possible through collaboration with the Australian marine research community with sustained support for the Marine Microbes (2015-2018) and Australian Microbiome Initiatives (2018-2021) in partnership with Bioplatforms Australia and the Integrated Marine Observing System (IMOS). IMOS, Bioplatforms Australia and The ARDC are funded by the Australian National Collaborative Research Infrastructure Strategy (NCRIS). The [Australian Microbiome Initiative](https://www.australianmicrobiome.com) received additional support from Parks Australia through the Bush Blitz program funded by the Australian Government and BHP, and the CSIRO.
+
+Marine samples collected and sequenced prior to 2015 were supported by the Australian Marine Microbial Biodiversity Initiative (AMMBI) with funding from Australian Research Council awards DP0988002 to Brown & Fuhrman, DP120102764 to Seymour, Brown & Bodrossy, DP150102326 to Brown, Ostrowski, Fuhrman & Bodrossy, the Environmental Genomics Project from CSIRO Oceans and Atmosphere and a CSIRO OCE Science Leader Fellowship to Bodrossy. Sample collection and contextual data measurements for AMMBI was also supported by IMOS through NCRIS.
+
+Research Voyages: Sample collection for the Marine Microbes and Australian Microbiome Initiatives was supported by the Australian Marine National Facility on voyages: SS2010_v09, SS2012_t07, SS2013_t03, IN2014_E03, IN2015_v04, IN2016_v03, IN2016_t01, IN2016_t02, IN2016_v04, IN2019_v03.
+
+Citation: Ostrowski, M., Brown, MV., van de Kamp, J., Bramucci, A., Varkey, D., Bodrossy, L., Hodgson-Johnston, I., Mazard, SM., and Seymour, J. Coastal and oceanic microbiomes of Australia.
+
+*Contact: martin.ostrowski@uts.edu.au
+

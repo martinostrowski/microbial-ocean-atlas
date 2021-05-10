@@ -1,9 +1,9 @@
-#Read in all chim1 ASV tables as RDS files, and
-#combine all plates run through the dada2 pipeline, and then filter them to remove 
-#low abundance reads, using the threshold of keeping only ASVs with >0.0001% per sample. 
-#Then run the collapse no mismatch step on the combined ASVs tables.
-#The collapse no mismatch step will compare reads and collapse any reads that are 100% identical
-#into one read, using the more dominant of the two collapsed ASVs as the final ASV and adding their abundances.
+# Read in all chim1 ASV tables as RDS files, and
+# combine all plates run through the dada2 pipeline, and then filter them to remove 
+# low abundance reads, using the threshold of keeping only ASVs with >0.0001% per sample. 
+# Then run the collapse no mismatch step on the combined ASVs tables.
+# The collapse no mismatch step will compare reads and collapse any reads that are 100% identical
+# into one read, using the more dominant of the two collapsed ASVs as the final ASV and adding their abundances.
 
 #further testing required
 

@@ -1,7 +1,7 @@
-#Bacterial b16s rRNA dada2 pipeline used for BPA dataset:
-#b18sF primer (27 F): 5’-AGAGTTTGATCMTGGCTCAG-3’
-#b18sR primer (519 R*): 5’-GWATTACCGCGGCKGCTG-3’
-#Bacterial b16s rRNA truncated at:(R1= 255; R2= 250)
+# Bacterial b16s rRNA dada2 pipeline used for BPA dataset:
+# b16sF primer (27 F): 5’-AGAGTTTGATCMTGGCTCAG-3’
+# b16sR primer (519 R*): 5’-GWATTACCGCGGCKGCTG-3’
+# Bacterial b16s rRNA truncated at:(R1= 255; R2= 250)
 
 library(R.utils);
 library(dada2);
@@ -18,17 +18,13 @@ library(DECIPHER); packageVersion("DECIPHER");
 
 home.dir <- ("/shared/c3/bio_db/BPA/amplicons/16s/"); #BPA dataset location
 
-
 setwd(home.dir);
 plates<-read_csv('plates.3');
 
 args = commandArgs(trailingOnly=TRUE);
 p=args[1];
 #p=4; #MAKE SURE THIS IS NOT RUN, ONLY REMOVE HASHTAG IF YOU WANT TO RUN ONE PLATE, in this case p=4 is just plate 4
-print(p);
-plates[p,1];
 
-home.dir <- ("/shared/c3/bio_db/BPA/amplicons/16s/"); #BPA dataset location
 
 base.dir <- (paste0(home.dir, plates[p,1]));
 dir.create(paste0(plates[p,1], ".final2020.exports"));
@@ -40,11 +36,11 @@ trunc_dir <-(paste0(export_dir, "pseudo.run_255_250"));
 trimLeng <-(paste0(trimmed_dir, "pseudo.run_255_250"));
 dir.create(paste0(trimLeng));
 
-#STEP2a: UNZIP your files if needed, here the patter is fastq if your files are still zipped they will be unzipped
+# STEP2a: UNZIP your files if needed, here the patter is fastq if your files are still zipped they will be unzipped
 
-#list.files(path=base.dir,  pattern=".fastq.gz");
-#data.fp.gz <- paste0(plates[p,1], "/");
-#print(data.fp.gz);
+# list.files(path=base.dir,  pattern=".fastq.gz");
+# data.fp.gz <- paste0(plates[p,1], "/");
+# print(data.fp.gz);
 
 #for (i in seq_along (files.fp.gz)){
 #              gunzip(filename=paste0(data.fp.gz,files.fp.gz[i]), overwrite=T)};
@@ -140,8 +136,8 @@ rbind(FWD.ForwardReads = sapply(FWD.orients, primerHits, fn = fnFs.cut[[1]]),
     REV.ReverseReads = sapply(REV.orients, primerHits, fn = fnRs.cut[[1]]));
 
 
-#STEP5: Dada2 trim step (CHANGE TRIM lengths in this step!)
-#here you are renaming your new files to be sample name_R1_trim.fastq, no need to change
+# STEP5: Dada2 trim step (CHANGE TRIM lengths in this step!)
+# here you are renaming your new files to be sample name_R1_trim.fastq, no need to change
 trimFs <- file.path(trimLeng, paste0(sample.names, "_R1_trim.fastq"));
 trimRs <- file.path(trimLeng, paste0(sample.names, "_R2_trim.fastq"));
 names(trimFs) <- sample.names;
@@ -171,7 +167,7 @@ rev.plot.errors <- plotErrors(errR, nominalQ=TRUE);
 ggsave(file = paste0(trunc_dir,"/","rev.errors.pdf"), rev.plot.errors, width = 10, height = 10, device="pdf");
 
 
-#STEP7:  DEREPLICATION, DADA2 Step, MERGE, and COLLAPSE if the same! SAVE RDS
+# STEP7:  DEREPLICATION, DADA2 Step, MERGE, and COLLAPSE if the same! SAVE RDS
 derepFs<-derepFastq(trimFs);
 derepRs<-derepFastq(trimRs);
 
@@ -186,15 +182,15 @@ dim(seqtab);
 saveRDS(seqtab, file = paste0(trunc_dir,"/",plates[p,1],"seqtab.RDS"), ascii = FALSE, version = NULL,
         compress = TRUE, refhook = NULL)
 
-#STEP8: Dada2 chimera removal step, using 2 different thresholds for removal (minFoldParentOverAbundance=4 and 1), 1 is standard
+# STEP8: Dada2 chimera removal step, using 2 different thresholds for removal (minFoldParentOverAbundance=4 and 1), 1 is standard
 # Inspect distribution of sequence lengths
 table(nchar(getSequences(seqtab)));
 seqtab.nochim.4 <- removeBimeraDenovo(seqtab, method="consensus", multithread=10, verbose=TRUE, minFoldParentOverAbundance=4);
 dim(seqtab.nochim.4);
 sum(seqtab.nochim.4)/sum(seqtab);
 
-#STEP9: WRITE TABLES!
-#changeG information in the following CSVs to match what you used in step 5 so that you have a record of your parameters when you should need it
+# STEP9: WRITE TABLES!
+# change information in the following CSVs to match what you used in step 5 so that you have a record of your parameters when you should need it
 
 getN <- function(x) sum(getUniques(x));
 track.4 <- cbind(out, sapply(dadaFs, getN), sapply(dadaRs, getN), sapply(mergers, getN), rowSums(seqtab.nochim.4));
@@ -237,7 +233,7 @@ track.table1$nochim1_precent <- sum(seqtab.nochim.1)/sum(seqtab);
 write.csv(track.table1, file = paste0(trunc_dir,"/",plates[p,1],".trackB1.csv"), col.names=NA);
 
 
-#TRACK READS THROUGH THE PIPELINE FOR CHIM.4
+# TRACK READS THROUGH THE PIPELINE FOR CHIM.4
 
 getN <- function(x) sum(getUniques(x));
 track.4 <- cbind(out, sapply(dadaFs, getN), sapply(dadaRs, getN), sapply(mergers, getN), rowSums(seqtab.nochim.4));
@@ -268,11 +264,11 @@ ggsave(plotLengthDist.log10.chim4, file = paste0(trunc_dir,"/","plotLengthDist.l
 sample <- rownames(seqtab.nochim.4);
 sequence <- colnames(seqtab.nochim.4);
 
-#check the col names and check how many ASVs that you are losing in the pipeline
+# check the col names and check how many ASVs that you are losing in the pipeline
 colnames(seqtab.nochim.4);
-#what % had chimera's vs non-chimeras?
+# what % had chimera's vs non-chimeras?
 sum(seqtab.nochim.4)/sum(seqtab);
-#this is the %
+# this is the %
 sum(rev(sort(colSums(seqtab.nochim.4)))[1:1000])/sum(colSums(seqtab.nochim.4));
 
 # Flip table

@@ -18,17 +18,12 @@ library(DECIPHER); packageVersion("DECIPHER");
 
 home.dir <- ("/shared/c3/bio_db/BPA/amplicons/a16s/"); #BPA dataset location
 
-
 setwd(home.dir);
 plates<-read_csv('plates.1');
 
 args = commandArgs(trailingOnly=TRUE);
 p=args[1];
-#p=4; #MAKE SURE THIS IS NOT RUN, ONLY REMOVE HASHTAG IF YOU WANT TO RUN ONE PLATE, in this case p=4 is just plate 4
-print(p);
-plates[p,1];
-
-home.dir <- ("/shared/c3/bio_db/BPA/amplicons/a16s/"); #BPA dataset location
+# p=4; #MAKE SURE THIS IS NOT RUN, ONLY REMOVE HASHTAG IF YOU WANT TO RUN ONE PLATE, in this case p=4 is just plate 4
 
 base.dir <- (paste0(home.dir, plates[p,1]));
 dir.create(paste0(plates[p,1], ".final2020.exports"));
@@ -40,7 +35,7 @@ trunc_dir <-(paste0(export_dir, "pseudo.run_228_228"));
 trimLeng <-(paste0(trimmed_dir, "pseudo.run_228_228"));
 dir.create(paste0(trimLeng));
 
-#STEP2a: UNZIP your files if needed, here the patter is fastq if your files are still zipped they will be unzipped
+# STEP2a: UNZIP your files if needed, here the patter is fastq if your files are still zipped they will be unzipped
 
 files.fp.gz<-list.files(path=base.dir,  pattern=".fastq.gz");
 data.fp.gz <- paste0(plates[p,1], "/");
@@ -99,17 +94,9 @@ rbind(FWD.ForwardReads = sapply(FWD.orients, primerHits, fn = fnFs.filtN[[1]]),
     FWD.ReverseReads = sapply(FWD.orients, primerHits, fn = fnRs.filtN[[1]]), 
     REV.ForwardReads = sapply(REV.orients, primerHits, fn = fnFs.filtN[[1]]), 
     REV.ReverseReads = sapply(REV.orients, primerHits, fn = fnRs.filtN[[1]]));
-    
-    
-    
-    
-    
-    
-    
-    
 
 cutadapt <- "/shared/c3/apps/anaconda3/bin/cutadapt"; # This is the path for the HPC
-#cutadapt <- "/usr/bin/cutadapt"; # this is the path for the FAST machine BETH/MARTIN
+# cutadapt <- "/usr/bin/cutadapt"; # this is the path for the FAST machine BETH/MARTIN
 
 data.fp <- paste0(trimmed_dir, "filtN");
 
@@ -148,8 +135,8 @@ rbind(FWD.ForwardReads = sapply(FWD.orients, primerHits, fn = fnFs.cut[[1]]),
     REV.ReverseReads = sapply(REV.orients, primerHits, fn = fnRs.cut[[1]]));
 
 
-#STEP5: Dada2 trim step (CHANGE TRIM lengths in this step!)
-#here you are renaming your new files to be sample name_R1_trim.fastq, no need to change
+# STEP5: Dada2 trim step (CHANGE TRIM lengths in this step!)
+# here you are renaming your new files to be sample name_R1_trim.fastq, no need to change
 trimFs <- file.path(trimLeng, paste0(sample.names, "_R1_trim.fastq"));
 trimRs <- file.path(trimLeng, paste0(sample.names, "_R2_trim.fastq"));
 names(trimFs) <- sample.names;
@@ -178,7 +165,7 @@ ggsave(file = paste0(trunc_dir,"/","fwd.errors.pdf"), fwd.plot.errors, width = 1
 rev.plot.errors <- plotErrors(errR, nominalQ=TRUE);
 ggsave(file = paste0(trunc_dir,"/","rev.errors.pdf"), rev.plot.errors, width = 10, height = 10, device="pdf");
 
-#STEP7:  DEREPLICATION, DADA2 Step, MERGE, and COLLAPSE if the same! SAVE RDS
+# STEP7:  DEREPLICATION, DADA2 Step, MERGE, and COLLAPSE if the same! SAVE RDS
 derepFs<-derepFastq(trimFs);
 derepRs<-derepFastq(trimRs);
 
@@ -193,7 +180,7 @@ dim(seqtab);
 saveRDS(seqtab, file = paste0(trunc_dir,"/",plates[p,1],"seqtab.RDS"), ascii = FALSE, version = NULL,
         compress = TRUE, refhook = NULL)
 
-#STEP8: Dada2 chimera removal step, using 2 different thresholds for removal (minFoldParentOverAbundance=4 and 1), 1 is standard
+# STEP8: Dada2 chimera removal step, using 2 different thresholds for removal (minFoldParentOverAbundance=4 and 1), 1 is standard
 # Inspect distribution of sequence lengths
 table(nchar(getSequences(seqtab)));
 seqtab.nochim.4 <- removeBimeraDenovo(seqtab, method="consensus", multithread=10, verbose=TRUE, minFoldParentOverAbundance=4);
@@ -203,8 +190,8 @@ sum(seqtab.nochim.4)/sum(seqtab);
 saveRDS(seqtab.nochim.4, file = paste0(trunc_dir,"/",plates[p,1],"seqtab.4.RDS"), ascii = FALSE, version = NULL,
         compress = TRUE, refhook = NULL)
 
-#STEP9: WRITE TABLES!
-#changeG information in the following CSVs to match what you used in step 5 so that you have a record of your parameters when you should need it
+# STEP9: WRITE TABLES!
+# changeG information in the following CSVs to match what you used in step 5 so that you have a record of your parameters when you should need it
 
 getN <- function(x) sum(getUniques(x));
 track.4 <- cbind(out, sapply(dadaFs, getN), sapply(dadaRs, getN), sapply(mergers, getN), rowSums(seqtab.nochim.4));

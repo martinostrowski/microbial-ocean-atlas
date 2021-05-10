@@ -1,4 +1,4 @@
-# Archaea a16s rRNA dada2 pipeline used for BPA dataset:
+# Example rRNA dada2 pipeline used for single-nucleotide resolution (ASV) analysis of marine amplicons:
 
 
 a16sF primer (A2F/Arch21f): 5’-TTCCGGTTGATCCYGCCGGA-3’
@@ -213,7 +213,7 @@ ggsave(file = paste0(trunc_dir,"/","rev.errors.pdf"), rev.plot.errors, width = 1
 
 
 
-### STE 7
+### STEP 7
 
 DEREPLICATION, DADA2 Step, MERGE, and COLLAPSE if the same! SAVE RDS
 
@@ -303,13 +303,18 @@ track.table1$Bimera <- 1;
 track.table1$nochim1_precent <- sum(seqtab.nochim.1)/sum(seqtab);
 write.csv(track.table1, file = paste0(trunc_dir,"/",plates[p,1],".trackB1.csv"), col.names=NA);
 
+```
+# TRACK READS THROUGH THE PIPELINE FOR CHIM.4
 
-#TRACK READS THROUGH THE PIPELINE FOR CHIM.4
 
+```r
 getN <- function(x) sum(getUniques(x));
 track.4 <- cbind(out, sapply(dadaFs, getN), sapply(dadaRs, getN), sapply(mergers, getN), rowSums(seqtab.nochim.4));
 
-# If processing a single sample, remove the sapply calls: e.g. replace sapply(dadaFs, getN) with getN(dadaFs)
+```
+If processing a single sample, remove the sapply calls: e.g. replace sapply(dadaFs, getN) with getN(dadaFs)
+
+```
 colnames(track.4) <- c("input", "filtered", "denoisedF", "denoisedR", "merged", "nonchim.4");
 rownames(track.4) <- sample.names;
 head(track.4);
@@ -334,8 +339,10 @@ ggsave(plotLengthDist.log10.chim4, file = paste0(trunc_dir,"/","plotLengthDist.l
 
 sample <- rownames(seqtab.nochim.4);
 sequence <- colnames(seqtab.nochim.4);
-
+```
 #check the col names and check how many ASVs that you are losing in the pipeline
+
+```r
 colnames(seqtab.nochim.4);
 #what % had chimera's vs non-chimeras?
 sum(seqtab.nochim.4)/sum(seqtab);
@@ -345,9 +352,12 @@ sum(rev(sort(colSums(seqtab.nochim.4)))[1:1000])/sum(colSums(seqtab.nochim.4));
 # Flip table
 seqtab.t.4 <- as.data.frame(t(seqtab.nochim.4));
 write.csv(seqtab.t.4, file = paste0(trunc_dir,"/",plates[p,1],".ASV.table.chim.4.csv"), col.names=NA);
+```
 
-# tracking reads by percentage
 
+tracking reads by percentage
+
+```r
 track.4 <- cbind(out, sapply(dadaFs, getN), sapply(dadaRs, getN), sapply(mergers, getN), rowSums(seqtab.nochim.4));
 colnames(track.4) <- c("input", "filtered", "denoisedF", "denoisedR", "merged", "nonchim.4");
 rownames(track.4) <- sample.names;
@@ -401,9 +411,10 @@ track_plot.4 <- track.4 %>%
   theme_classic();
 
 ggsave(track_plot.4, file = paste0(trunc_dir,"/","track_plot.4.pdf"), width = 10, height = 10, device="pdf")
+```
+# TRACK READS THROUGH THE PIPELINE FOR CHIM.8
 
-#TRACK READS THROUGH THE PIPELINE FOR CHIM.8
-
+```r
 getN <- function(x) sum(getUniques(x));
 track.1 <- cbind(out, sapply(dadaFs, getN), sapply(dadaRs, getN), sapply(mergers, getN), rowSums(seqtab.nochim.1));
 
@@ -499,8 +510,10 @@ track_plot.1 <- track.1 %>%
   theme_classic();
 
 ggsave(track_plot.1, file = paste0(trunc_dir,"/",plates[p,1],".track_plot.1.pdf"), width = 10, height = 10, device="pdf")
+```
+# save RDS files of the seqtab files of importance:
 
-#save RDS files of the seqtab files of importance:
+```r
 
 saveRDS(seqtab.nochim.1, file = paste0(trunc_dir,"/",plates[p,1],"seqtab.1.RDS"), ascii = FALSE, version = NULL,
         compress = TRUE, refhook = NULL)

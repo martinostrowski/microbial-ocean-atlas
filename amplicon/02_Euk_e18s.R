@@ -1,7 +1,7 @@
-#Eukaryotic 18s rRNA dada2 pipeline used for BPA dataset:
-#e18sF primer (TAReuk454FWD1): 5’-CCAGCASCYGCGGTAATTCC-3’ 
-#e18sR primer (TAReuk-Rev3): 5’-ACTTTCGTTCTTGATYRATGATCTRYATC-3’
-#Eukaryotic e18s rRNA truncated at:(R1= 250; R2= 228)
+# Eukaryotic 18s rRNA dada2 pipeline used for BPA dataset:
+# e18sF primer (TAReuk454FWD1): 5’-CCAGCASCYGCGGTAATTCC-3’ 
+# e18sR primer (TAReuk-Rev3): 5’-ACTTTCGTTCTTGATYRATGATCTRYATC-3’
+# Eukaryotic e18s rRNA truncated at:(R1= 250; R2= 228)
 
 library(R.utils);
 library(dada2);
@@ -18,7 +18,6 @@ library(DECIPHER); packageVersion("DECIPHER");
 
 home.dir <- ("/shared/c3/bio_db/BPA/amplicons/18S/"); #BPA dataset location
 
-
 setwd(home.dir);
 plates<-read_csv('plates.3');
 
@@ -27,8 +26,6 @@ p=args[1];
 #p=4; #MAKE SURE THIS IS NOT RUN, ONLY REMOVE HASHTAG IF YOU WANT TO RUN ONE PLATE, in this case p=4 is just plate 4
 print(p);
 plates[p,1];
-
-home.dir <- ("/shared/c3/bio_db/BPA/amplicons/18S/"); #BPA dataset location
 
 base.dir <- (paste0(home.dir, plates[p,1]));
 dir.create(paste0(plates[p,1], ".final2020.exports"));

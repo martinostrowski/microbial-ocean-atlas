@@ -1,0 +1,54 @@
+#!
+# get bioplatforms current fastqs and store them in a list
+# requires jp; if you have brew try, brew -install jp
+#
+#get the download urls for amdb
+ 
+ for URL in $( curl -H "Authorization: $CKAN_API_KEY" 'https://data.bioplatforms.com/api/3/action/package_search?q=type:amdb-genomics-amplicon&rows=50000&include_private=true' | jq -r '.result .results [] .resources [] .url'); do   echo "downloading: $URL"; done > amdb1
+ for URL in $( curl -H "Authorization: $CKAN_API_KEY" 'https://data.bioplatforms.com/api/3/action/package_search?q=type:amdb_genomics-amplicon-control&rows=50000&include_private=true' | jq -r '.result .results [] .resources [] .url'); do   echo "downloading: $URL"; done > amdbb2
+ for URL in $( curl -H "Authorization: $CKAN_API_KEY" 'https://data.bioplatforms.com/api/3/action/package_search?q=type:amdb-metagenomics-novaseq&rows=50000&include_private=true' | jq -r '.result .results [] .resources [] .url'); do   echo "downloading: $URL"; done > amdb3
+ for URL in $( curl -H "Authorization: $CKAN_API_KEY" 'https://data.bioplatforms.com/api/3/action/package_search?q=type:amdb-metagenomics-novaseq-control&rows=50000&include_private=true' | jq -r '.result .results [] .resources [] .url'); do   echo "downloading: $URL"; done > amdb4
+ 
+ cat amdb* | grep -v 'md5' | wc -l
+ 
+ #get the download urls for mm
+ 
+for URL in $( curl -H "Authorization: $CKAN_API_KEY" 'https://data.bioplatforms.com/api/3/action/package_search?q=type:mm-genomics-amplicon&rows=50000&include_private=true' | jq -r '.result .results [] .resources [] .url'); do   echo "downloading: $URL"; done > mm1
+for URL in $( curl -H "Authorization: $CKAN_API_KEY" 'https://data.bioplatforms.com/api/3/action/package_search?q=type:mm_genomics-amplicon-control&rows=50000&include_private=true' | jq -r '.result .results [] .resources [] .url'); do   echo "downloading: $URL"; done > mm2
+for URL in $( curl -H "Authorization: $CKAN_API_KEY" 'https://data.bioplatforms.com/api/3/action/package_search?q=type:mm-metagenomics&rows=50000&include_private=true' | jq -r '.result .results [] .resources [] .url'); do   echo "downloading: $URL"; done > mm3
+for URL in $( curl -H "Authorization: $CKAN_API_KEY" 'https://data.bioplatforms.com/api/3/action/package_search?q=type:mm-mm_metatranscriptomel&rows=50000&include_private=true' | jq -r '.result .results [] .resources [] .url'); do   echo "downloading: $URL"; done > mm4
+ 
+ 
+cat mm1 mm2 mm3 mm4 | grep -v 'md5$' | wc -l
+
+#get the download urls for base
+ 
+for URL in $( curl -H "Authorization: $CKAN_API_KEY" 'https://data.bioplatforms.com/api/3/action/package_search?q=type:base-genomics-amplicon&rows=50000&include_private=true' | jq -r '.result .results [] .resources [] .url'); do   echo "downloading: $URL"; done > base.1
+for URL in $( curl -H "Authorization: $CKAN_API_KEY" 'https://data.bioplatforms.com/api/3/action/package_search?q=type:base_genomics-amplicon-control&rows=50000&include_private=true' | jq -r '.result .results [] .resources [] .url'); do   echo "downloading: $URL"; done > base.2
+for URL in $( curl -H "Authorization: $CKAN_API_KEY" 'https://data.bioplatforms.com/api/3/action/package_search?q=type:base-metagenomics-novaseq&rows=50000&include_private=true' | jq -r '.result .results [] .resources [] .url'); do   echo "downloading: $URL"; done > base.3
+for URL in $( curl -H "Authorization: $CKAN_API_KEY" 'https://data.bioplatforms.com/api/3/action/package_search?q=type:base-metagenomics-novaseq-control&rows=50000&include_private=true' | jq -r '.result .results [] .resources [] .url'); do   echo "downloading: $URL"; done > base.4
+ 
+cat base* | grep -v 'md5$' | wc -l 
+ 
+cat mm1 mm2 mm3 mm4 | grep -v 'md5$' | grep -v '_I1' | grep -v '_I2' >mm-codes
+cat amdb* | grep -v 'md5$' | grep -v '_I1' | grep -v '_I2' > amdb-codes 
+cat base* | grep -v 'md5$' | grep -v '_I1' | grep -v '_I2' > base-codes
+ 
+ 
+ 
+ 
+ 
+amdb_genomics_amplicon.json
+amdb_genomics_amplicon_control.json
+amdb_metagenomics_novaseq.json
+amdb_metagenomics_novaseq_control.json
+
+mm_genomics_amplicon.json
+mm_genomics_amplicon_control.json
+mm_metagenomics.json
+mm_metatranscriptome.json
+
+base_genomics_amplicon.json
+base_genomics_amplicon_control.json
+base_metagenomics.json
+base_site_image.json
